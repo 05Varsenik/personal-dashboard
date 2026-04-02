@@ -46,7 +46,10 @@ export default function Header({
     }
 
     window.addEventListener("keydown", handleEscape);
-    return () => window.removeEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
   }, []);
 
   useEffect(() => {
@@ -82,6 +85,7 @@ export default function Header({
 
   function handleTaskChange(e) {
     const { name, value } = e.target;
+
     setTaskForm((prev) => ({
       ...prev,
       [name]: value,
@@ -90,6 +94,7 @@ export default function Header({
 
   function handleInviteChange(e) {
     const { name, value } = e.target;
+
     setInviteForm((prev) => ({
       ...prev,
       [name]: value,
@@ -137,7 +142,8 @@ export default function Header({
     }
   }
 
-  const profileImage = members[0]?.avatar || "https://i.pravatar.cc/100?img=15";
+  const profileImage =
+    members[0]?.avatar || "https://i.pravatar.cc/100?img=15";
 
   return (
     <>
@@ -150,7 +156,12 @@ export default function Header({
 
           <nav className={`nav ${menuOpen ? "open" : ""}`}>
             <button
-              className={activePage === "dashboard" ? "nav-link active nav-btn" : "nav-link nav-btn"}
+              type="button"
+              className={
+                activePage === "dashboard"
+                  ? "nav-link active nav-btn"
+                  : "nav-link nav-btn"
+              }
               onClick={() => {
                 setActivePage("dashboard");
                 setMenuOpen(false);
@@ -160,7 +171,12 @@ export default function Header({
             </button>
 
             <button
-              className={activePage === "list" ? "nav-link active nav-btn" : "nav-link nav-btn"}
+              type="button"
+              className={
+                activePage === "list"
+                  ? "nav-link active nav-btn"
+                  : "nav-link nav-btn"
+              }
               onClick={() => {
                 setActivePage("list");
                 setMenuOpen(false);
@@ -169,15 +185,28 @@ export default function Header({
               List
             </button>
 
-            <button className="nav-link nav-btn">Board</button>
-            <button className="nav-link nav-btn">Calendar</button>
+            <button type="button" className="nav-link nav-btn">
+              Board
+            </button>
+
+            <button type="button" className="nav-link nav-btn">
+              Calendar
+            </button>
 
             <div className="mobile-actions">
-              <button className="invite-btn mobile-btn" onClick={openInviteModal}>
+              <button
+                type="button"
+                className="invite-btn mobile-btn"
+                onClick={openInviteModal}
+              >
                 Invite
               </button>
 
-              <button className="add-task-btn mobile-btn" onClick={openTaskModal}>
+              <button
+                type="button"
+                className="add-task-btn mobile-btn"
+                onClick={openTaskModal}
+              >
                 + Add Task
               </button>
             </div>
@@ -185,15 +214,25 @@ export default function Header({
         </div>
 
         <div className="header-right">
-          <button className="invite-btn desktop-only" onClick={openInviteModal}>
+          <button
+            type="button"
+            className="invite-btn desktop-only"
+            onClick={openInviteModal}
+          >
             Invite
           </button>
 
-          <button className="add-task-btn desktop-only" onClick={openTaskModal}>
+          <button
+            type="button"
+            className="add-task-btn desktop-only"
+            onClick={openTaskModal}
+          >
             + Add Task
           </button>
 
-          <button className="icon-btn desktop-only">🔔</button>
+          <button type="button" className="icon-btn desktop-only">
+            🔔
+          </button>
 
           <div className="profile-box desktop-only">
             <img src={profileImage} alt="profile" className="profile-img" />
@@ -201,9 +240,9 @@ export default function Header({
           </div>
 
           <button
+            type="button"
             className={`burger ${menuOpen ? "active" : ""}`}
             onClick={() => setMenuOpen((prev) => !prev)}
-            type="button"
           >
             <span></span>
             <span></span>
@@ -212,7 +251,12 @@ export default function Header({
         </div>
       </header>
 
-      {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
+      {menuOpen && (
+        <div
+          className="menu-overlay"
+          onClick={() => setMenuOpen(false)}
+        ></div>
+      )}
 
       {showTaskModal && (
         <div className="modal-overlay" onClick={() => setShowTaskModal(false)}>
@@ -276,7 +320,10 @@ export default function Header({
       )}
 
       {showInviteModal && (
-        <div className="modal-overlay" onClick={() => setShowInviteModal(false)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setShowInviteModal(false)}
+        >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h2 className="modal-title">Invite Member</h2>
 
