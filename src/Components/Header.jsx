@@ -169,15 +169,15 @@ export default function Header({
               List
             </button>
 
-            <button type="button" className="nav-link nav-btn">Board</button>
-            <button type="button" className="nav-link nav-btn">Calendar</button>
+            <button className="nav-link nav-btn">Board</button>
+            <button className="nav-link nav-btn">Calendar</button>
 
             <div className="mobile-actions">
-              <button type="button" className="invite-btn mobile-btn" onClick={openInviteModal}>
+              <button className="invite-btn mobile-btn" onClick={openInviteModal}>
                 Invite
               </button>
 
-              <button type="button" className="add-task-btn mobile-btn" onClick={openTaskModal}>
+              <button className="add-task-btn mobile-btn" onClick={openTaskModal}>
                 + Add Task
               </button>
             </div>

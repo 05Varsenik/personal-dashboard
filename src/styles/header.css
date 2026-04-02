@@ -11,6 +11,8 @@
   position: sticky;
   top: 0;
   z-index: 200;
+  max-width: 1900px;
+  margin: 0 auto;
 }
 
 .header-left {
@@ -48,7 +50,7 @@
   font-weight: 700;
   color: #2b2638;
   white-space: nowrap;
-  padding-right: 50px;
+  padding-right: 20px;
 }
 
 .nav {
@@ -104,6 +106,7 @@
   border-radius: 14px;
   font-size: 15px;
   box-shadow: 0 4px 18px rgba(89, 73, 130, 0.08);
+  cursor: pointer;
 }
 
 .add-task-btn {
@@ -114,6 +117,7 @@
   border-radius: 14px;
   font-size: 18px;
   box-shadow: 0 8px 20px rgba(108, 76, 246, 0.25);
+  cursor: pointer;
 }
 
 .icon-btn {
@@ -127,6 +131,7 @@
   border-radius: 14px;
   font-size: 18px;
   box-shadow: 0 4px 18px rgba(89, 73, 130, 0.08);
+  cursor: pointer;
 }
 
 .profile-box {
@@ -160,7 +165,8 @@
   border-radius: 14px;
   box-shadow: 0 4px 18px rgba(89, 73, 130, 0.08);
   position: relative;
-  z-index: 500;
+  z-index: 600;
+  cursor: pointer;
 }
 
 .burger span {
@@ -252,6 +258,7 @@
   color: #40395a;
   padding: 12px 18px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .save-btn {
@@ -260,6 +267,7 @@
   color: white;
   padding: 12px 18px;
   border-radius: 12px;
+  cursor: pointer;
 }
 
 .invite-message {
@@ -274,8 +282,6 @@
 
   .burger {
     display: block;
-    position: relative;
-    z-index: 600;
   }
 
   .nav {
@@ -293,7 +299,6 @@
     padding: 100px 20px 24px;
     transition: right 0.3s ease;
     z-index: 500;
- 
   }
 
   .nav.open {
@@ -341,6 +346,7 @@
 
   .logo-text {
     font-size: 20px;
+    padding-right: 0;
   }
 
   .nav {
