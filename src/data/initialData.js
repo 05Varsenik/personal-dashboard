@@ -1,0 +1,77 @@
+export const initialMembers = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john@example.com",
+    avatar: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: 2,
+    name: "Emma Smith",
+    email: "emma@example.com",
+    avatar: "https://i.pravatar.cc/100?img=5",
+  },
+  {
+    id: 3,
+    name: "Alex Brown",
+    email: "alex@example.com",
+    avatar: "https://i.pravatar.cc/100?img=12",
+  },
+];
+
+export const initialTasks = [
+  {
+    id: 101,
+    title: "Design Landing Page",
+    assigneeId: 1,
+    dueDate: "2026-04-12",
+    priority: "High",
+    status: "In Progress",
+    createdAt: "2026-04-01T10:00:00",
+  },
+  {
+    id: 102,
+    title: "Write Documentation",
+    assigneeId: 1,
+    dueDate: "2026-04-20",
+    priority: "Low",
+    status: "Done",
+    createdAt: "2026-04-02T11:00:00",
+  },
+  {
+    id: 103,
+    title: "Test Website Flow",
+    assigneeId: 2,
+    dueDate: "2026-04-16",
+    priority: "High",
+    status: "In Progress",
+    createdAt: "2026-04-03T12:00:00",
+  },
+  {
+    id: 104,
+    title: "Update Marketing Plan",
+    assigneeId: 3,
+    dueDate: "2026-04-11",
+    priority: "Low",
+    status: "Done",
+    createdAt: "2026-04-04T09:00:00",
+  },
+  {
+    id: 105,
+    title: "Create Dashboard UI",
+    assigneeId: 3,
+    dueDate: "2026-04-18",
+    priority: "High",
+    status: "In Progress",
+    createdAt: "2026-04-05T08:30:00",
+  },
+  {
+    id: 106,
+    title: "Fix Bugs & Testing",
+    assigneeId: 2,
+    dueDate: "2026-04-24",
+    priority: "Medium",
+    status: "In Progress",
+    createdAt: "2026-04-06T14:40:00",
+  },
+];
