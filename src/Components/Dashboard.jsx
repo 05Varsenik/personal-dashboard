@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import "../styles/dashboard.css";
+import translations from "../translations";
 
-export default function Dashboard({ tasks, members, setActivePage }) {
+export default function Dashboard({ tasks, members, setActivePage, lang }) {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const t = translations[lang];
 
   function getMember(memberId) {
     return members.find((member) => member.id === memberId);
@@ -10,6 +12,14 @@ export default function Dashboard({ tasks, members, setActivePage }) {
 
   function formatDate(dateString) {
     const date = new Date(dateString);
+
+    if (lang === "am") {
+      return date.toLocaleDateString("hy-AM", {
+        month: "short",
+        day: "numeric",
+      });
+    }
+
     return date.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
@@ -24,7 +34,7 @@ export default function Dashboard({ tasks, members, setActivePage }) {
 
   const recentlyAddedTasks = useMemo(() => {
     return [...tasks]
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      .sort((a, b) => new Date(b.createdAt || b.id) - new Date(a.createdAt || a.id))
       .slice(0, 4);
   }, [tasks]);
 
@@ -37,7 +47,9 @@ export default function Dashboard({ tasks, members, setActivePage }) {
     return { inProgress, done, high, total };
   }, [tasks]);
 
-  const progressPercent = stats.total ? Math.round((stats.done / stats.total) * 100) : 0;
+  const progressPercent = stats.total
+    ? Math.round((stats.done / stats.total) * 100)
+    : 0;
 
   function prevMonth() {
     setCurrentDate(
@@ -72,7 +84,10 @@ export default function Dashboard({ tasks, members, setActivePage }) {
         year === new Date().getFullYear();
 
       days.push(
-        <div key={day} className={isToday ? "calendar-day active" : "calendar-day"}>
+        <div
+          key={day}
+          className={isToday ? "calendar-day active" : "calendar-day"}
+        >
           {day}
         </div>
       );
@@ -81,24 +96,37 @@ export default function Dashboard({ tasks, members, setActivePage }) {
     return days;
   }
 
+  const monthLabel =
+    lang === "am"
+      ? currentDate.toLocaleDateString("hy-AM", {
+          month: "long",
+          year: "numeric",
+        })
+      : currentDate.toLocaleDateString("en-US", {
+          month: "long",
+          year: "numeric",
+        });
+
   return (
     <section className="dashboard-page">
       <div className="dashboard-title-row">
-        <h2 className="dashboard-main-title">Dashboard</h2>
+        <h2 className="dashboard-main-title">{t.dashboard}</h2>
       </div>
 
       <div className="dashboard-grid">
         <div className="dashboard-card high-priority-card">
           <div className="card-head">
-            <h3>High Priority Tasks</h3>
-            <button onClick={() => setActivePage("list")}>See All</button>
+            <h3>{lang === "am" ? "Բարձր առաջնահերթությամբ առաջադրանքներ" : "High Priority Tasks"}</h3>
+            <button onClick={() => setActivePage("list")}>
+              {lang === "am" ? "Տեսնել բոլորը" : "See All"}
+            </button>
           </div>
 
           <div className="priority-summary">
             <span className="priority-flag">🚩</span>
             <div>
               <strong>{stats.high}</strong>
-              <p>Tasks</p>
+              <p>{lang === "am" ? "առաջադրանք" : "Tasks"}</p>
             </div>
           </div>
 
@@ -120,25 +148,27 @@ export default function Dashboard({ tasks, members, setActivePage }) {
 
         <div className="dashboard-card overview-card">
           <div className="card-head">
-            <h3>Tasks Overview</h3>
-            <span className="light-chip">Last 7 Days</span>
+            <h3>{lang === "am" ? "Առաջադրանքների ընդհանուր պատկերը" : "Tasks Overview"}</h3>
+            <span className="light-chip">
+              {lang === "am" ? "Վերջին 7 օրը" : "Last 7 Days"}
+            </span>
           </div>
 
           <div className="overview-content">
             <div className="overview-stats">
               <div className="overview-item">
                 <span className="overview-count">{stats.inProgress}</span>
-                <span>In Progress</span>
+                <span>{t.inProgress}</span>
               </div>
 
               <div className="overview-item">
                 <span className="overview-count">{stats.done}</span>
-                <span>Done</span>
+                <span>{t.done}</span>
               </div>
 
               <div className="overview-item">
                 <span className="overview-count">{stats.high}</span>
-                <span>High Priority</span>
+                <span>{lang === "am" ? "Բարձր առաջնահերթություն" : "High Priority"}</span>
               </div>
             </div>
 
@@ -153,15 +183,17 @@ export default function Dashboard({ tasks, members, setActivePage }) {
                   <strong>{stats.total}</strong>
                 </div>
               </div>
-              <p>Total Tasks</p>
+              <p>{lang === "am" ? "Բոլոր առաջադրանքները" : "Total Tasks"}</p>
             </div>
           </div>
         </div>
 
         <div className="dashboard-card stats-card">
           <div className="card-head">
-            <h3>Task Stats</h3>
-            <span className="light-chip">Last 7 Days</span>
+            <h3>{lang === "am" ? "Առաջադրանքների վիճակագրություն" : "Task Stats"}</h3>
+            <span className="light-chip">
+              {lang === "am" ? "Վերջին 7 օրը" : "Last 7 Days"}
+            </span>
           </div>
 
           <div className="fake-chart">
@@ -176,36 +208,49 @@ export default function Dashboard({ tasks, members, setActivePage }) {
             </div>
 
             <div className="chart-legend">
-              <span><i className="legend purple"></i> In Progress</span>
-              <span><i className="legend green"></i> Done</span>
+              <span>
+                <i className="legend purple"></i> {t.inProgress}
+              </span>
+              <span>
+                <i className="legend green"></i> {t.done}
+              </span>
             </div>
           </div>
         </div>
 
         <div className="dashboard-card calendar-card">
           <div className="card-head">
-            <h3>Calendar</h3>
+            <h3>{t.calendar}</h3>
           </div>
 
           <div className="calendar-top">
             <button onClick={prevMonth}>‹</button>
-            <h4>
-              {currentDate.toLocaleDateString("en-US", {
-                month: "long",
-                year: "numeric",
-              })}
-            </h4>
+            <h4>{monthLabel}</h4>
             <button onClick={nextMonth}>›</button>
           </div>
 
           <div className="week-days">
-            <span>M</span>
-            <span>T</span>
-            <span>W</span>
-            <span>T</span>
-            <span>F</span>
-            <span>S</span>
-            <span>S</span>
+            {lang === "am" ? (
+              <>
+                <span>Ե</span>
+                <span>Եք</span>
+                <span>Չ</span>
+                <span>Հ</span>
+                <span>Ու</span>
+                <span>Շբ</span>
+                <span>Կի</span>
+              </>
+            ) : (
+              <>
+                <span>M</span>
+                <span>T</span>
+                <span>W</span>
+                <span>T</span>
+                <span>F</span>
+                <span>S</span>
+                <span>S</span>
+              </>
+            )}
           </div>
 
           <div className="calendar-grid">{renderCalendarDays()}</div>
@@ -214,8 +259,10 @@ export default function Dashboard({ tasks, members, setActivePage }) {
 
       <div className="dashboard-card recent-card">
         <div className="card-head">
-          <h3>Recently Added Tasks</h3>
-          <button onClick={() => setActivePage("list")}>View All</button>
+          <h3>{lang === "am" ? "Վերջերս ավելացված առաջադրանքներ" : "Recently Added Tasks"}</h3>
+          <button onClick={() => setActivePage("list")}>
+            {lang === "am" ? "Տեսնել բոլորը" : "View All"}
+          </button>
         </div>
 
         <div className="recent-list">
@@ -233,7 +280,11 @@ export default function Dashboard({ tasks, members, setActivePage }) {
                   <span>{member?.name}</span>
                   <span>{formatDate(task.dueDate)}</span>
                   <span className={`priority-pill ${task.priority.toLowerCase()}`}>
-                    {task.priority}
+                    {task.priority === "High"
+                      ? t.high
+                      : task.priority === "Medium"
+                      ? t.medium
+                      : t.low}
                   </span>
                 </div>
               </div>

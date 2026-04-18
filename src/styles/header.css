@@ -1,16 +1,15 @@
 .header {
   width: 100%;
-  min-height: 84px;
   background: #f8f6fb;
   border-bottom: 1px solid #e9e4f3;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 34px;
+  padding: 0 30px;
   gap: 20px;
   position: sticky;
   top: 0;
-  z-index: 800;
+  z-index: 9999;
   max-width: 1900px;
   margin: 0 auto;
   transition: box-shadow 0.3s ease, background 0.3s ease;
@@ -19,7 +18,7 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   min-width: 0;
   position: relative;
   z-index: 850;
@@ -28,15 +27,15 @@
 .logo-wrap {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-shrink: 0;
   position: relative;
   z-index: 850;
 }
 
 .logo-circle {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #6c4cf6;
   color: white;
@@ -53,7 +52,7 @@
 }
 
 .logo-text {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #2b2638;
   white-space: nowrap;
@@ -66,9 +65,10 @@
 }
 
 .nav {
+  padding-left: 40px;
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: 30px;
 }
 
 .nav-btn {
@@ -82,9 +82,9 @@
 
 .nav-link {
   color: #4d4859;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-  padding: 30px 0 24px;
+  padding: 28px 0 24px;
   position: relative;
   transition: color 0.3s ease, transform 0.25s ease;
 }
@@ -126,7 +126,7 @@
 .header-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-shrink: 0;
   position: relative;
   z-index: 850;
@@ -136,7 +136,7 @@
   border: none;
   background: white;
   color: #574f68;
-  padding: 14px 18px;
+  padding: 12px 13px;
   border-radius: 14px;
   font-size: 15px;
   box-shadow: 0 4px 18px rgba(89, 73, 130, 0.08);
@@ -160,9 +160,9 @@
   border: none;
   background: #6c4cf6;
   color: white;
-  padding: 14px 22px;
+  padding: 14px 20px;
   border-radius: 14px;
-  font-size: 18px;
+  font-size: 15px;
   box-shadow: 0 8px 20px rgba(108, 76, 246, 0.25);
   cursor: pointer;
   transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
@@ -183,8 +183,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 46px;
+  height: 46px;
   border: none;
   background: white;
   border-radius: 14px;
@@ -211,7 +211,7 @@
   align-items: center;
   gap: 10px;
   background: white;
-  padding: 8px 12px;
+  padding: 6px 6px;
   border-radius: 14px;
   box-shadow: 0 4px 18px rgba(89, 73, 130, 0.08);
   transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
@@ -237,7 +237,7 @@
 }
 
 .profile-arrow {
-  font-size: 18px;
+  font-size: 17       px;
   color: #666;
   transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -426,6 +426,27 @@
   font-size: 14px;
   color: #5f48da;
   animation: fadeUp 0.35s ease;
+}
+
+.locked-date-box {
+  width: 100%;
+  background: #f7f5fc;
+  border-radius: 16px;
+  padding: 15px 16px;
+  font-size: 15px;
+  color: #3e3750;
+  font-weight: 500;
+}
+.lang-select {
+  height: 42px;
+  padding: 0 3px;
+  border-radius: 12px;
+  background: white ;
+   color: #574f68;
+  font-size: 13px;
+  border: 1px solid #d8d3e4;
+  outline: none;
+  cursor: pointer;
 }
 
 @media (max-width: 980px) {

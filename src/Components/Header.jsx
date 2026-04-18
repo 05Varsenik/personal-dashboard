@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/header.css";
+import translations from "../translations";
 
 export default function Header({
   members,
@@ -7,16 +8,26 @@ export default function Header({
   inviteMember,
   activePage,
   setActivePage,
+  showTaskModal,
+  setShowTaskModal,
+  taskModalStatus,
+  taskModalDate,
+  setTaskModalDate,
+  lang,
+  setLang,
 }) {
-  const [showTaskModal, setShowTaskModal] = useState(false);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const t = translations[lang];
+
   const [taskForm, setTaskForm] = useState({
     title: "",
+    description: "",
     assigneeId: "",
     dueDate: "",
     priority: "High",
+    status: "To Do",
   });
 
   const [inviteForm, setInviteForm] = useState({
@@ -25,6 +36,8 @@ export default function Header({
   });
 
   const [inviteMessage, setInviteMessage] = useState("");
+
+  const openedFromCalendar = Boolean(taskModalDate);
 
   useEffect(() => {
     if (members.length > 0) {
@@ -36,12 +49,28 @@ export default function Header({
   }, [members]);
 
   useEffect(() => {
+    if (showTaskModal) {
+      setTaskForm({
+        title: "",
+        description: "",
+        assigneeId: members[0]?.id || "",
+        dueDate: taskModalDate || "",
+        priority: "High",
+        status: taskModalStatus || "To Do",
+      });
+    }
+  }, [showTaskModal, taskModalStatus, taskModalDate, members]);
+
+  useEffect(() => {
     function handleEscape(e) {
       if (e.key === "Escape") {
         setMenuOpen(false);
         setShowTaskModal(false);
         setShowInviteModal(false);
         setInviteMessage("");
+        if (setTaskModalDate) {
+          setTaskModalDate("");
+        }
       }
     }
 
@@ -50,7 +79,7 @@ export default function Header({
     return () => {
       window.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [setShowTaskModal, setTaskModalDate]);
 
   useEffect(() => {
     if (menuOpen || showTaskModal || showInviteModal) {
@@ -65,12 +94,9 @@ export default function Header({
   }, [menuOpen, showTaskModal, showInviteModal]);
 
   function openTaskModal() {
-    setTaskForm({
-      title: "",
-      assigneeId: members[0]?.id || "",
-      dueDate: "",
-      priority: "High",
-    });
+    if (setTaskModalDate) {
+      setTaskModalDate("");
+    }
     setShowTaskModal(true);
     setShowInviteModal(false);
     setMenuOpen(false);
@@ -110,19 +136,23 @@ export default function Header({
       !taskForm.dueDate ||
       !taskForm.priority
     ) {
-      alert("Please fill all fields.");
+      alert(t.pleaseFillAllFields);
       return;
     }
 
     addTask(taskForm);
     setShowTaskModal(false);
+
+    if (setTaskModalDate) {
+      setTaskModalDate("");
+    }
   }
 
   function handleInvite(e) {
     e.preventDefault();
 
     if (!inviteForm.name.trim() || !inviteForm.email.trim()) {
-      alert("Please fill all fields.");
+      alert(t.pleaseFillAllFields);
       return;
     }
 
@@ -151,7 +181,7 @@ export default function Header({
         <div className="header-left">
           <div className="logo-wrap">
             <div className="logo-circle">✓</div>
-            <h1 className="logo-text">Task Manager</h1>
+            <h1 className="logo-text">{t.appTitle}</h1>
           </div>
 
           <nav className={`nav ${menuOpen ? "open" : ""}`}>
@@ -167,7 +197,7 @@ export default function Header({
                 setMenuOpen(false);
               }}
             >
-              Dashboard
+              {t.dashboard}
             </button>
 
             <button
@@ -182,24 +212,55 @@ export default function Header({
                 setMenuOpen(false);
               }}
             >
-              List
+              {t.list}
             </button>
 
-            <button type="button" className="nav-link nav-btn">
-              Board
+            <button
+              type="button"
+              className={
+                activePage === "board"
+                  ? "nav-link active nav-btn"
+                  : "nav-link nav-btn"
+              }
+              onClick={() => {
+                setActivePage("board");
+                setMenuOpen(false);
+              }}
+            >
+              {t.board}
             </button>
 
-            <button type="button" className="nav-link nav-btn">
-              Calendar
+            <button
+              type="button"
+              className={
+                activePage === "calendar"
+                  ? "nav-link active nav-btn"
+                  : "nav-link nav-btn"
+              }
+              onClick={() => {
+                setActivePage("calendar");
+                setMenuOpen(false);
+              }}
+            >
+              {t.calendar}
             </button>
 
             <div className="mobile-actions">
+              <select
+                className="lang-select mobile-btn"
+                value={lang}
+                onChange={(e) => setLang(e.target.value)}
+              >
+                <option value="en">English</option>
+                <option value="am">Հայերեն</option>
+              </select>
+
               <button
                 type="button"
                 className="invite-btn mobile-btn"
                 onClick={openInviteModal}
               >
-                Invite
+                {t.invite}
               </button>
 
               <button
@@ -207,19 +268,28 @@ export default function Header({
                 className="add-task-btn mobile-btn"
                 onClick={openTaskModal}
               >
-                + Add Task
+                {t.addTask}
               </button>
             </div>
           </nav>
         </div>
 
         <div className="header-right">
+          <select
+            className="lang-select desktop-only"
+            value={lang}
+            onChange={(e) => setLang(e.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="am">Հայերեն</option>
+          </select>
+
           <button
             type="button"
             className="invite-btn desktop-only"
             onClick={openInviteModal}
           >
-            Invite
+            {t.invite}
           </button>
 
           <button
@@ -227,16 +297,11 @@ export default function Header({
             className="add-task-btn desktop-only"
             onClick={openTaskModal}
           >
-            + Add Task
-          </button>
-
-          <button type="button" className="icon-btn desktop-only">
-            🔔
+            {t.addTask}
           </button>
 
           <div className="profile-box desktop-only">
-            <img src={profileImage} alt="profile" className="profile-img" />
-            <span className="profile-arrow">⌄</span>
+            <img src={profileImage} alt={t.profileAlt} className="profile-img" />
           </div>
 
           <button
@@ -252,25 +317,37 @@ export default function Header({
       </header>
 
       {menuOpen && (
-        <div
-          className="menu-overlay"
-          onClick={() => setMenuOpen(false)}
-        ></div>
+        <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>
       )}
 
       {showTaskModal && (
-        <div className="modal-overlay" onClick={() => setShowTaskModal(false)}>
+        <div
+          className="modal-overlay"
+          onClick={() => {
+            setShowTaskModal(false);
+            if (setTaskModalDate) {
+              setTaskModalDate("");
+            }
+          }}
+        >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal-title">Add New Task</h2>
+            <h2 className="modal-title">{t.addNewTask}</h2>
 
             <form onSubmit={handleAddTask} className="modal-form">
               <input
                 type="text"
                 name="title"
-                placeholder="Task title"
+                placeholder={t.taskTitle}
                 value={taskForm.title}
                 onChange={handleTaskChange}
               />
+
+              <textarea
+                name="description"
+                placeholder={t.taskDescription}
+                value={taskForm.description}
+                onChange={handleTaskChange}
+              ></textarea>
 
               <select
                 name="assigneeId"
@@ -284,34 +361,55 @@ export default function Header({
                 ))}
               </select>
 
-              <input
-                type="date"
-                name="dueDate"
-                value={taskForm.dueDate}
-                onChange={handleTaskChange}
-              />
+              {openedFromCalendar ? (
+                <div className="locked-date-box">
+                  {t.selectedDate} {taskForm.dueDate}
+                </div>
+              ) : (
+                <input
+                  type="date"
+                  name="dueDate"
+                  value={taskForm.dueDate}
+                  onChange={handleTaskChange}
+                />
+              )}
 
               <select
                 name="priority"
                 value={taskForm.priority}
                 onChange={handleTaskChange}
               >
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
+                <option value="High">{t.high}</option>
+                <option value="Medium">{t.medium}</option>
+                <option value="Low">{t.low}</option>
+              </select>
+
+              <select
+                name="status"
+                value={taskForm.status}
+                onChange={handleTaskChange}
+              >
+                <option value="To Do">{t.todo}</option>
+                <option value="In Progress">{t.inProgress}</option>
+                <option value="Done">{t.done}</option>
               </select>
 
               <div className="modal-actions">
                 <button
                   type="button"
                   className="cancel-btn"
-                  onClick={() => setShowTaskModal(false)}
+                  onClick={() => {
+                    setShowTaskModal(false);
+                    if (setTaskModalDate) {
+                      setTaskModalDate("");
+                    }
+                  }}
                 >
-                  Cancel
+                  {t.cancel}
                 </button>
 
                 <button type="submit" className="save-btn">
-                  Save Task
+                  {t.saveTask}
                 </button>
               </div>
             </form>
@@ -325,13 +423,13 @@ export default function Header({
           onClick={() => setShowInviteModal(false)}
         >
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal-title">Invite Member</h2>
+            <h2 className="modal-title">{t.inviteMember}</h2>
 
             <form onSubmit={handleInvite} className="modal-form">
               <input
                 type="text"
                 name="name"
-                placeholder="Full name"
+                placeholder={t.fullName}
                 value={inviteForm.name}
                 onChange={handleInviteChange}
               />
@@ -339,7 +437,7 @@ export default function Header({
               <input
                 type="email"
                 name="email"
-                placeholder="Email address"
+                placeholder={t.emailAddress}
                 value={inviteForm.email}
                 onChange={handleInviteChange}
               />
@@ -357,11 +455,11 @@ export default function Header({
                     setInviteMessage("");
                   }}
                 >
-                  Cancel
+                  {t.cancel}
                 </button>
 
                 <button type="submit" className="save-btn">
-                  Invite
+                  {t.invite}
                 </button>
               </div>
             </form>
