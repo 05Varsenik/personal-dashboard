@@ -412,57 +412,51 @@
   background: #f7f4ff;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
   .calendar-layout {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 900px) {
-  .month-grid {
-    overflow-x: auto;
+  .calendar-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .calendar-main-title {
+    font-size: 30px;
   }
 
   .month-cell {
     min-height: 130px;
   }
-
-  .calendar-main-title {
-    font-size: 28px;
-  }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 992px) {
   .calendar-page {
-    padding: 20px 14px;
-  }
-
-  .calendar-main-card,
-  .mini-calendar-card,
-  .upcoming-card {
-    border-radius: 22px;
+    padding: 24px 16px;
   }
 
   .calendar-toolbar {
-    align-items: stretch;
+    align-items: flex-start;
   }
 
-  .calendar-toolbar-left,
-  .calendar-toolbar-right {
+  .calendar-toolbar-left {
     width: 100%;
+    justify-content: space-between;
   }
 
   .add-task-calendar-btn {
     width: 100%;
   }
 
-  .week-row span {
-    font-size: 12px;
-    padding: 10px 4px;
+  .month-title {
+    font-size: 20px;
   }
 
   .month-cell {
-    padding: 10px 6px;
+    min-height: 120px;
+    padding: 10px 8px;
   }
 
   .calendar-task-chip {
@@ -471,5 +465,183 @@
 
   .calendar-task-chip strong {
     font-size: 11px;
+  }
+
+  .calendar-task-chip small {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .calendar-main-title {
+    font-size: 26px;
+  }
+
+  .calendar-subtitle {
+    font-size: 14px;
+  }
+
+  .calendar-main-card,
+  .mini-calendar-card,
+  .upcoming-card {
+    border-radius: 22px;
+  }
+
+  .calendar-main-card {
+    padding: 14px;
+    overflow-x: auto;
+  }
+
+  .week-row,
+  .month-grid {
+    min-width: 720px;
+  }
+
+  .month-cell {
+    min-height: 115px;
+  }
+
+  .calendar-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-calendar-card,
+  .upcoming-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .calendar-page {
+    padding: 20px 12px;
+  }
+
+  .calendar-header {
+    margin-bottom: 14px;
+  }
+
+  .calendar-main-title {
+    font-size: 24px;
+  }
+
+  .calendar-subtitle {
+    font-size: 13px;
+  }
+
+  .calendar-toolbar {
+    gap: 12px;
+  }
+
+  .calendar-toolbar-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .today-btn {
+    width: 100%;
+  }
+
+  .month-nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .month-nav button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .month-title {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .add-task-calendar-btn {
+    padding: 12px 16px;
+  }
+
+  .week-row span {
+    font-size: 12px;
+    padding: 12px 8px;
+  }
+
+  .month-cell {
+    min-height: 105px;
+  }
+
+  .day-number {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .calendar-task-chip {
+    border-radius: 12px;
+    gap: 6px;
+  }
+
+  .chip-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .mini-calendar-head h4,
+  .upcoming-head h4 {
+    font-size: 16px;
+  }
+
+  .upcoming-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .upcoming-badge {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar-page {
+    padding: 16px 10px;
+  }
+
+  .calendar-main-title {
+    font-size: 22px;
+  }
+
+  .calendar-main-card {
+    padding: 12px;
+  }
+
+  .week-row,
+  .month-grid {
+    min-width: 650px;
+  }
+
+  .month-cell {
+    min-height: 95px;
+    padding: 8px 6px;
+  }
+
+  .month-title {
+    font-size: 16px;
+  }
+
+  .today-btn,
+  .add-task-calendar-btn,
+  .sidebar-add-btn {
+    font-size: 13px;
+  }
+
+  .mini-day {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .mini-grid {
+    gap: 6px;
   }
 }
