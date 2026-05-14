@@ -455,7 +455,7 @@
   }
 
   .month-cell {
-    min-height: 120px;
+    min-height: 110px;
     padding: 10px 8px;
   }
 
@@ -473,12 +473,20 @@
 }
 
 @media (max-width: 768px) {
+  .calendar-page {
+    padding: 22px 12px;
+  }
+
   .calendar-main-title {
     font-size: 26px;
   }
 
   .calendar-subtitle {
     font-size: 14px;
+  }
+
+  .calendar-layout {
+    gap: 16px;
   }
 
   .calendar-main-card,
@@ -488,21 +496,101 @@
   }
 
   .calendar-main-card {
-    padding: 14px;
-    overflow-x: auto;
+    padding: 10px;
+    overflow-x: hidden;
+  }
+
+  .calendar-toolbar {
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .calendar-toolbar-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .today-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .month-nav button {
+    width: 38px;
+    height: 38px;
+    font-size: 21px;
+  }
+
+  .month-title {
+    font-size: 18px;
+  }
+
+  .add-task-calendar-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 13px;
   }
 
   .week-row,
   .month-grid {
-    min-width: 720px;
+    min-width: 0;
+    width: 100%;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .week-row {
+    margin-bottom: 6px;
+  }
+
+  .week-row span {
+    padding: 8px 2px;
+    font-size: 11px;
+  }
+
+  .month-grid {
+    border-radius: 16px;
   }
 
   .month-cell {
-    min-height: 115px;
+    min-height: 76px;
+    padding: 6px 4px;
+    gap: 5px;
+  }
+
+  .day-number {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .calendar-task-chip {
+    padding: 5px 4px;
+    border-radius: 8px;
+    gap: 4px;
+  }
+
+  .calendar-task-chip strong {
+    font-size: 9px;
+    line-height: 1.15;
+  }
+
+  .calendar-task-chip small {
+    display: none;
+  }
+
+  .chip-dot {
+    width: 6px;
+    height: 6px;
+    margin-top: 3px;
+  }
+
+  .more-tasks {
+    font-size: 10px;
   }
 
   .calendar-sidebar {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .mini-calendar-card,
@@ -513,7 +601,7 @@
 
 @media (max-width: 576px) {
   .calendar-page {
-    padding: 20px 12px;
+    padding: 20px 10px;
   }
 
   .calendar-header {
@@ -528,14 +616,10 @@
     font-size: 13px;
   }
 
-  .calendar-toolbar {
-    gap: 12px;
-  }
-
   .calendar-toolbar-left {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 10px;
   }
 
   .today-btn {
@@ -548,91 +632,53 @@
   }
 
   .month-nav button {
-    width: 40px;
-    height: 40px;
-    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
   }
 
   .month-title {
-    font-size: 18px;
+    font-size: 17px;
     text-align: center;
   }
 
-  .add-task-calendar-btn {
-    padding: 12px 16px;
-  }
-
   .week-row span {
-    font-size: 12px;
-    padding: 12px 8px;
+    font-size: 10px;
+    padding: 7px 1px;
   }
 
   .month-cell {
-    min-height: 105px;
+    min-height: 70px;
+    padding: 5px 3px;
   }
 
   .day-number {
-    width: 30px;
-    height: 30px;
-    font-size: 13px;
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .cell-tasks {
+    gap: 4px;
   }
 
   .calendar-task-chip {
-    border-radius: 12px;
-    gap: 6px;
+    padding: 4px 3px;
+    border-radius: 7px;
+  }
+
+  .calendar-task-chip strong {
+    font-size: 8px;
   }
 
   .chip-dot {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
   }
 
   .mini-calendar-head h4,
   .upcoming-head h4 {
     font-size: 16px;
-  }
-
-  .upcoming-item {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .upcoming-badge {
-    align-self: flex-start;
-  }
-}
-
-@media (max-width: 400px) {
-  .calendar-page {
-    padding: 16px 10px;
-  }
-
-  .calendar-main-title {
-    font-size: 22px;
-  }
-
-  .calendar-main-card {
-    padding: 12px;
-  }
-
-  .week-row,
-  .month-grid {
-    min-width: 650px;
-  }
-
-  .month-cell {
-    min-height: 95px;
-    padding: 8px 6px;
-  }
-
-  .month-title {
-    font-size: 16px;
-  }
-
-  .today-btn,
-  .add-task-calendar-btn,
-  .sidebar-add-btn {
-    font-size: 13px;
   }
 
   .mini-day {
@@ -643,5 +689,73 @@
 
   .mini-grid {
     gap: 6px;
+  }
+
+  .upcoming-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .upcoming-badge {
+    align-self: flex-start;
+  }
+
+  .sidebar-add-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar-page {
+    padding: 16px 8px;
+  }
+
+  .calendar-main-title {
+    font-size: 22px;
+  }
+
+  .calendar-main-card {
+    padding: 8px;
+  }
+
+  .month-title {
+    font-size: 16px;
+  }
+
+  .month-nav button {
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+  }
+
+  .month-cell {
+    min-height: 64px;
+    padding: 4px 2px;
+    gap: 4px;
+  }
+
+  .day-number {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+
+  .calendar-task-chip {
+    padding: 3px 2px;
+  }
+
+  .calendar-task-chip strong {
+    font-size: 7.5px;
+  }
+
+  .more-tasks {
+    font-size: 9px;
+  }
+
+  .today-btn,
+  .add-task-calendar-btn,
+  .sidebar-add-btn {
+    font-size: 12px;
   }
 }
